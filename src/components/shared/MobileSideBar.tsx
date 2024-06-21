@@ -1,11 +1,12 @@
 'use client'
 import React from 'react'
-import { Sheet,SheetContent,SheetTrigger} from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import Link from 'next/link'
 import Image from 'next/image'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import { navLinks } from '../../../constants'
 import { usePathname } from 'next/navigation'
+import { Button } from '../ui/button'
 
 
 const MobileSideBar = () => {
@@ -20,7 +21,7 @@ const MobileSideBar = () => {
             <nav className="flex gap-2">
                 <SignedIn>
                     <div className=' px-2 py-2 rounded-md bg-slate-200'>
-                    <UserButton showName afterSignOutUrl='/' />
+                        <UserButton showName afterSignOutUrl='/' />
                     </div>
                     <Sheet>
                         <SheetTrigger><span className='ml-2'>| | |</span></SheetTrigger>
@@ -31,28 +32,30 @@ const MobileSideBar = () => {
                             </div>
 
                             <ul className='sidebar-nav_elements mt-2'>
-                            {navLinks.map((link) => {
-                                const isActive = link.route === pathname
-                                return (
-                                    <li key={link.route} className={`sidebar-nav_element group border-r-4 ${isActive ? "bg-black text-white" : "text-black"}`}>
+                                {navLinks.map((link) => {
+                                    const isActive = link.route === pathname
+                                    return (
+                                        <li key={link.route} className={`sidebar-nav_element group border-r-4 ${isActive ? "bg-black text-white" : "text-black"}`}>
 
-                                        <Link href={link.route} className='sidebar-link'>
-                                            <Image src={link.icon} height={28} width={28} alt='icon' className='pr-2' />
-                                            {link.label}
-                                        </Link>
-                                    </li>
-                                )
-                            })}
-                            <li className='flex-center cursor-pointer gap-2 p-4'>
-                                <UserButton showName afterSignOutUrl='/' />
-                            </li>
-                        </ul>
+                                            <Link href={link.route} className='sidebar-link'>
+                                                <Image src={link.icon} height={28} width={28} alt='icon' className='pr-2' />
+                                                {link.label}
+                                            </Link>
+                                        </li>
+                                    )
+                                })}
+                                <li className='flex-center cursor-pointer gap-2 p-4'>
+                                    <UserButton showName afterSignOutUrl='/' />
+                                </li>
+                            </ul>
                         </SheetContent>
                     </Sheet>
 
                 </SignedIn>
                 <SignedOut>
-
+                    <Button className='bg-black'>
+                        <Link href='sign-in'>Login</Link>
+                    </Button>
                 </SignedOut>
             </nav>
         </header>
