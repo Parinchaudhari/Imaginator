@@ -24,14 +24,14 @@ const MobileSideBar = () => {
                         <UserButton showName afterSignOutUrl='/' />
                     </div>
                     <Sheet>
-                        <SheetTrigger><span className='ml-2'>| | |</span></SheetTrigger>
+                        <SheetTrigger><span className='ml-2'>| |</span></SheetTrigger>
                         <SheetContent className='sheet-content sm:w-65'>
                             <div className='my-5'>
                                 <Image src='/assets/images/ImaginatorLogo.png' width={50} height={40} alt='logo' />
                                 <p className='font-bold text-2xl '>Imaginator</p>
                             </div>
 
-                            <ul className='sidebar-nav_elements mt-2'>
+                            <ul className='mt-2'>
                                 {navLinks.map((link) => {
                                     const isActive = link.route === pathname
                                     return (
@@ -50,7 +50,6 @@ const MobileSideBar = () => {
                             </ul>
                         </SheetContent>
                     </Sheet>
-
                 </SignedIn>
                 <SignedOut>
                     <Button className='bg-black'>
