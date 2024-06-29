@@ -5,7 +5,7 @@ export interface IImage extends Document {
     title: string;
     transformationType: string;
     publicId: string;
-    secureUrl: string; // Assuming URL type should be string for compatibility with MongoDB
+    secureURL: string; // Assuming URL type should be string for compatibility with MongoDB
     width?: number;
     height?: number;
     congif?: object; // Object type
@@ -27,11 +27,11 @@ const ImageSchema= new Schema({
     title:{type:String,required:true},
     transformationType:{type:String,required:true},
     publicId:{type:String,required:true},
-    secureUrl:{type:URL,required:true},
+    secureURL:{type:String,required:true},
     width:{type:Number},
     height:{type:Number},
     congif:{type:Object},
-    transformationURL:{type:URL},
+    transformationURL:{type:String},
     aspectRation:{type:String},
     color:{type:String},
     promt:{type:String},
