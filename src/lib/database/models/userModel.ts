@@ -19,7 +19,7 @@ const userSchema=new Schema({
     firstName:{type:String},
     lastName:{type:String},
     planId:{type:Number,default:1},
-    creditBalance:{type:Number,default:100}
+    creditBalance:{type:Number,default:10}
 })
 
 const User=models?.User || model('User',userSchema)

@@ -8,7 +8,7 @@ export interface IImage extends Document {
     secureURL: string; // Assuming URL type should be string for compatibility with MongoDB
     width?: number;
     height?: number;
-    congif?: object; // Object type
+    config?: object; // Object type
     transformationURL?: string; // Assuming URL type should be string for compatibility with MongoDB
     aspectRation?: string;
     color?: string;

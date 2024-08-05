@@ -14,7 +14,7 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { aspectRatioOptions, defaultValues, transformationTypes } from "../../../constants"
+import { aspectRatioOptions, creditFee, defaultValues, transformationTypes } from "../../../constants"
 import { CustomField } from "./CustomField"
 
 import {
@@ -24,7 +24,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { useState, useTransition } from "react"
+import { useEffect, useState, useTransition } from "react"
 import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils"
 import MediaUploder from "./MediaUploder"
 import TransformedImage from "./TransformedImage"
@@ -32,6 +32,7 @@ import { updateCredits } from "@/lib/actions/userAction"
 import { getCldImageUrl } from "next-cloudinary"
 import { addImage, updateImage } from "@/lib/actions/imageAction"
 import { useRouter } from "next/navigation"
+import { InsufficientCreditsModal } from "./InsufficientCreditsModal"
 
 
 export const formSchema = z.object({
@@ -171,13 +172,22 @@ const TransformationForm = ({ action, data = null, type, userId, creditBalance,c
         setNewTransformation(null)
 
         startTransition(async ()=>{
-            await updateCredits(userId,-1)
+            await updateCredits(userId,creditFee)
         })
     }
+    useEffect(()=>{
+        if(image && (type==='restore' || type==='removeBackground')){
+            setNewTransformation(transformationType.config)
+        }
+
+    },[image,transformationType.config,type])
 
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 m-4">
+                {
+                    (creditBalance < Math.abs(creditFee)) && <InsufficientCreditsModal/>
+                }
                 <CustomField
                     control={form.control}
                     name="title"
